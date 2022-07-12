@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@sindresorhus/slugify": "^2.1.0",
     "chrome-aws-lambda": "^10.1.0",
     "classnames": "^2.3.1",
     "next": "latest",
