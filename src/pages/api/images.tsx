@@ -3,6 +3,8 @@ import { ScreenshotOptions } from "puppeteer-core";
 import { getScreenshot } from "./_lib/chromium";
 const isDev = !process.env.AWS_REGION;
 const HOST = isDev ? "http://localhost:3000" : "https://shrirambalaji.com";
+const DEFAULT_TITLE = "Hello World!"
+import slugify from "@sindresorhus/slugify";
 
 interface OgSearchParams extends URLSearchParams {
   title?: string;
@@ -15,16 +17,23 @@ export default async function handler(
 ) {
   try {
     const url = new URL(req.url as string, HOST);
-    const params = url.searchParams as OgSearchParams;
+    const params: OgSearchParams = url.searchParams;
+    const fileType = params.get('fileType') as unknown as ScreenshotOptions['type'] ?? "png";
+    const title = params.get('title') ?? DEFAULT_TITLE;
+
     const queryString = params.toString()
-    const fileType = params.fileType || "png";
     const screenshotUrl = `${HOST}?${queryString}`;
     const file = await getScreenshot(screenshotUrl, fileType);
+
     res.statusCode = 200;
     res.setHeader("Content-Type", `image/${fileType}`);
     res.setHeader(
       "Cache-Control",
       `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`
+    );
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="${slugify(title)}.${fileType}"`
     );
     res.end(file);
   } catch (e) {
