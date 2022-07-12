@@ -31,10 +31,6 @@ export default async function handler(
       "Cache-Control",
       `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`
     );
-    res.setHeader(
-      "Content-Disposition",
-      `attachment; filename="${slugify(title)}.${fileType}"`
-    );
     res.end(file);
   } catch (e) {
     res.statusCode = 500;
