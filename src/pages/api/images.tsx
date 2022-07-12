@@ -1,14 +1,15 @@
+import slugify from "@sindresorhus/slugify";
 import { IncomingMessage, ServerResponse } from "http";
-import { ScreenshotOptions } from "puppeteer-core";
-import { getScreenshot } from "./_lib/chromium";
+import type { ScreenShotFileType } from "./_lib/playwright";
+import { getScreenshot } from "./_lib/playwright";
+
 const isDev = !process.env.AWS_REGION;
 const HOST = isDev ? "http://localhost:3000" : "https://shrirambalaji.com";
-const DEFAULT_TITLE = "Hello World!"
-import slugify from "@sindresorhus/slugify";
+const DEFAULT_TITLE = "Hello World!";
 
 interface OgSearchParams extends URLSearchParams {
   title?: string;
-  fileType?: ScreenshotOptions["type"];
+  fileType?: ScreenShotFileType;
 }
 
 export default async function handler(
@@ -18,18 +19,20 @@ export default async function handler(
   try {
     const url = new URL(req.url as string, HOST);
     const params: OgSearchParams = url.searchParams;
-    const fileType = params.get('fileType') as unknown as ScreenshotOptions['type'] ?? "png";
-    const title = params.get('title') ?? DEFAULT_TITLE;
-
-    const queryString = params.toString()
+    const fileType =
+      (params.get("fileType") as unknown as ScreenShotFileType) ?? "png";
+    const title = params.get("title") ?? DEFAULT_TITLE;
+    const queryString = params.toString();
     const screenshotUrl = `${HOST}?${queryString}`;
     const file = await getScreenshot(screenshotUrl, fileType);
-
     res.statusCode = 200;
     res.setHeader("Content-Type", `image/${fileType}`);
     res.setHeader(
       "Cache-Control",
       `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`
+    );
+    res.setHeader(
+      "Content-Disposition", `filename="${slugify(title)}.${fileType}"`
     );
     res.end(file);
   } catch (e) {
