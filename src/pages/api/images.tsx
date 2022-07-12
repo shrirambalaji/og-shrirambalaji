@@ -1,7 +1,7 @@
 import slugify from "@sindresorhus/slugify";
 import { IncomingMessage, ServerResponse } from "http";
-import type { ScreenShotFileType } from "./_lib/playwright";
-import { getScreenshot } from "./_lib/playwright";
+import type { ScreenShotFileType } from "./_lib/_playwright";
+import { getScreenshot } from "./_lib/_playwright";
 
 const isDev = !process.env.AWS_REGION;
 const HOST = isDev ? "http://localhost:3000" : "https://shrirambalaji.com";
