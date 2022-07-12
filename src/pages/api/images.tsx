@@ -18,12 +18,16 @@ export default async function handler(
 ) {
   try {
     const url = new URL(req.url as string, HOST);
+    console.log('>>--SHRIRAM-->>url', url);
     const params: OgSearchParams = url.searchParams;
+    console.log('>>--SHRIRAM-->>params', params);
     const fileType =
       (params.get("fileType") as unknown as ScreenShotFileType) ?? "png";
     const title = params.get("title") ?? DEFAULT_TITLE;
+    console.log('>>--SHRIRAM-->>title', title);
     const queryString = params.toString();
     const screenshotUrl = `${HOST}?${queryString}`;
+    console.log('>>--SHRIRAM-->>screenshotUrl', screenshotUrl);
     const file = await getScreenshot(screenshotUrl, fileType);
     res.statusCode = 200;
     res.setHeader("Content-Type", `image/${fileType}`);

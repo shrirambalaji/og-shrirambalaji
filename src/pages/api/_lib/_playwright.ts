@@ -16,6 +16,7 @@ export async function getScreenshot(url: string, fileType: ScreenShotFileType) {
             : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
       };
   let browser = null;
+  console.log('>>--SHRIRAM-->>options', options);
   try {
     browser = await playwright.launchChromium(options);
     const context = await browser.newContext({
@@ -23,6 +24,7 @@ export async function getScreenshot(url: string, fileType: ScreenShotFileType) {
       deviceScaleFactor: 2,
     });
     const page = await context.newPage();
+    console.log('>>--SHRIRAM-->>page', page);
     await page.goto(url, { waitUntil: "networkidle" });
     const element = await page.$("#preview");
     if (!element) {
