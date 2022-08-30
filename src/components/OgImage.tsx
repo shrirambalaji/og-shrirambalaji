@@ -54,14 +54,16 @@ const OgImage: React.FC<ImageProps> = ({
         }}
       >
         <picture
-          className={cn("absolute z-10 h-full w-full left-0 top-0",{ "blur-3xl": blur })}
+          className={cn("absolute z-10 h-full w-full left-0 top-0", {
+            "blur-3xl": blur,
+          })}
           style={{
-            backgroundSize: backgroundUrl ? 'cover': 'auto',
+            backgroundSize: backgroundUrl ? "cover" : "auto",
             backgroundImage: backgroundUrl
               ? `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${backgroundUrl})`
               : "var(--bg-graph)",
           }}
-       />
+        />
         {date && (
           <p
             className={`font-regular font-sans text-lg ${textColors.quarternary} z-20`}
@@ -72,7 +74,7 @@ const OgImage: React.FC<ImageProps> = ({
         <div className="flex flex-col justify-center z-20">
           <h1
             className={cn(
-              `${titleFontStyle} ${titleFontSize} font-semibold  text-white`,
+              `${titleFontSize} font-sans font-semibold text-white`,
               {
                 [`w-fit rounded-xl bg-indigo-400 px-[15px] text-center`]:
                   shouldHighlightTitle && !backgroundUrl,
