@@ -73,14 +73,11 @@ const OgImage: React.FC<ImageProps> = ({
         )}
         <div className="flex flex-col justify-center z-20">
           <h1
-            style={{ fontWeight: 'bold'}}
-            className={cn(
-              `${titleFontSize} font-sans text-white`,
-              {
-                [`w-fit rounded-xl bg-indigo-400 px-[15px] text-center`]:
-                  shouldHighlightTitle && !backgroundUrl,
-              }
-            )}
+            style={{ fontWeight: 600 }}
+            className={cn(`${titleFontSize} font-sans text-white`, {
+              [`w-fit rounded-xl bg-indigo-400 px-[15px] text-center`]:
+                shouldHighlightTitle && !backgroundUrl,
+            })}
           >
             {title}
           </h1>
