@@ -23,7 +23,7 @@ export default function Document() {
               @font-face {
                 font-family: "Inter";
                 font-style: normal;
-                font-weight: 500;
+                font-weight: 600;
                 src: url("/fonts/Inter-SemiBold.ttf") format("ttf");
               }
 
@@ -40,6 +40,13 @@ export default function Document() {
                 font-weight: normal;
                 src: url("/fonts/JetBrainsMono-Regular.ttf") format("ttf");
               }
+
+              @font-face {
+                font-family: "JetBrains Mono";
+                font-style: normal;
+                font-weight: 600;
+                src: url("/fonts/JetBrainsMono-SemiBold.ttf") format("ttf");
+              }   
 
               @font-face {
                 font-family: "JetBrains Mono";
