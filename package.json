@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "@fontsource/inter": "^4.5.12",
+    "@fontsource/jetbrains-mono": "^4.5.10",
     "@sindresorhus/slugify": "^2.1.0",
     "chrome-aws-lambda": "~8.0.2",
     "classnames": "^2.3.1",
