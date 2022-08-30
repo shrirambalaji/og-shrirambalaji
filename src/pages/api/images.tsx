@@ -12,39 +12,6 @@ interface OgSearchParams extends URLSearchParams {
   fileType?: ScreenshotOptions["type"];
 }
 
-const regular = path.join(`/fonts/Inter-Regular.ttf`);
-const light = path.join(`/fonts/Inter-Light.ttf`);
-const bold = path.join(`/fonts/Inter-Bold.ttf`);
-const mono = path.join(`/fonts/JetBrains-Mono.ttf`);
-
-export function getCss() {
-  return `
-    @font-face {
-        font-family: 'Inter';
-        font-style:  normal;
-        font-weight: normal;
-        src: url(data:font/ttf;charset=utf-8;base64,${regular}) format('ttf');
-    }
-    @font-face {
-        font-family: 'Inter';
-        font-weight: 300;
-        src: url(data:font/ttf;charset=utf-8;base64,${light}) format('ttf');
-    }
-    @font-face {
-        font-family: 'Inter';
-        font-style:  normal;
-        font-weight: bold;
-        src: url(data:font/ttf;charset=utf-8;base64,${bold}) format('ttf');
-    }
-    @font-face {
-        font-family: 'JetBrains Mono';
-        font-style: normal;
-        font-weight: normal;
-        src: url(data:font/ttf;charset=utf-8;base64,${mono})  format("ttf");
-      }
-    `;
-}
-
 export default async function handler(
   req: IncomingMessage,
   res: ServerResponse
