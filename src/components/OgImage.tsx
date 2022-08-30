@@ -74,7 +74,7 @@ const OgImage: React.FC<ImageProps> = ({
         <div className="flex flex-col justify-center z-20">
           <h1
             className={cn(
-              `${titleFontSize} font-sans font-semibold text-white`,
+              `${titleFontSize} font-sans text-white`,
               {
                 [`w-fit rounded-xl bg-indigo-400 px-[15px] text-center`]:
                   shouldHighlightTitle && !backgroundUrl,
