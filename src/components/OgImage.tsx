@@ -1,17 +1,11 @@
 import React from "react";
 import cn from "classnames";
+import { ImageQueryParams } from "../pages";
 
-export interface ImageProps {
-  title: string;
-  date?: string;
-  highlight?: string;
-  subtitle?: string;
-  backgroundUrl?: string;
-  blur?: string;
-}
+interface ImageProps extends ImageQueryParams {}
 
-const imageWidth = "1200px";
-const imageHeight = "630px";
+const IMAGE_WIDTH = "1200px";
+const IMAGE_HEIGHT = "630px";
 
 const textColors = {
   primary: "text-white",
@@ -27,6 +21,8 @@ const OgImage: React.FC<ImageProps> = ({
   highlight,
   backgroundUrl,
   blur,
+  center,
+  hideUsername,
 }) => {
   const isCode = title.startsWith("`") && title.endsWith("`");
   if (isCode) title = title.substring(1).slice(0, -1);
@@ -47,10 +43,11 @@ const OgImage: React.FC<ImageProps> = ({
     <div className="bg-ghostindigo-900 text-fg flex min-h-screen w-full items-center justify-center">
       <div
         id="preview"
-        className="relative flex h-full flex-col items-start justify-between p-[80px]"
+        className={`relative flex h-full flex-col justify-between p-[80px]`}
         style={{
-          width: imageWidth,
-          height: imageHeight,
+          width: IMAGE_WIDTH,
+          height: IMAGE_HEIGHT,
+          alignItems: center ? "center" : "start",
         }}
       >
         <picture
@@ -71,7 +68,10 @@ const OgImage: React.FC<ImageProps> = ({
             {date}
           </p>
         )}
-        <div className="flex flex-col justify-center z-20">
+        <div
+          className="flex flex-col justify-center z-20"
+          style={{ height: center ? "100%" : "auto" }}
+        >
           <h1
             style={{ fontWeight: 600 }}
             className={cn(`${titleFontSize} ${titleFontStyle} text-white`, {
@@ -90,11 +90,13 @@ const OgImage: React.FC<ImageProps> = ({
           )}
         </div>
         <footer className="bottom-24 z-20">
-          <p
-            className={`font-regular font-sans text-2xl ${textColors.tertiary}`}
-          >
-            @shrirambalaji
-          </p>
+          {!hideUsername && (
+            <p
+              className={`font-regular font-sans text-2xl ${textColors.tertiary}`}
+            >
+              @shrirambalaji
+            </p>
+          )}
         </footer>
       </div>
     </div>

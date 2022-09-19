@@ -3,7 +3,7 @@ import path from "path";
 import { ScreenshotOptions } from "puppeteer-core";
 import { getScreenshot } from "./_lib/chromium";
 const isDev = !process.env.AWS_REGION;
-const HOST = isDev ? "http://localhost:3000" : process.env.VERCEL_HOST;
+const HOST = isDev ? "http://localhost:3001" : process.env.VERCEL_HOST;
 
 const DEFAULT_TITLE = "Hello World!";
 
