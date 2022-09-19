@@ -16,10 +16,11 @@ const textColors = {
 
 const OgImage: React.FC<ImageProps> = ({
   title = "",
-  subtitle = "",
+  subtitle,
   date,
   highlight,
-  backgroundUrl,
+  backgroundImageURL,
+  backgroundOverlayOpacity,
   blur,
   center,
   hideUsername,
@@ -31,13 +32,15 @@ const OgImage: React.FC<ImageProps> = ({
   const shouldHighlightTitle = highlight === "true";
   const titleFontSize =
     title.length >= 40 ? "text-5xl leading-normal" : "text-7xl leading-tight";
+  const overlayOpacity = backgroundOverlayOpacity ?? "0.5";
 
-  if (backgroundUrl) {
+  if (backgroundImageURL) {
     textColors.secondary =
       textColors.tertiary =
       textColors.quarternary =
         "text-gray-100";
   }
+  
 
   return (
     <div className="bg-ghostindigo-900 text-fg flex min-h-screen w-full items-center justify-center">
@@ -55,9 +58,9 @@ const OgImage: React.FC<ImageProps> = ({
             "blur-3xl": blur,
           })}
           style={{
-            backgroundSize: backgroundUrl ? "cover" : "auto",
-            backgroundImage: backgroundUrl
-              ? `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${backgroundUrl})`
+            backgroundSize: backgroundImageURL ? "cover" : "auto",
+            backgroundImage: backgroundImageURL
+              ? `linear-gradient( rgba(0, 0, 0, ${overlayOpacity}), rgba(0, 0, 0, ${overlayOpacity}) ), url(${backgroundImageURL})`
               : "var(--bg-graph)",
           }}
         />
@@ -76,7 +79,7 @@ const OgImage: React.FC<ImageProps> = ({
             style={{ fontWeight: 600 }}
             className={cn(`${titleFontSize} ${titleFontStyle} text-white`, {
               [`w-fit rounded-xl bg-indigo-400 px-[15px] text-center`]:
-                shouldHighlightTitle && !backgroundUrl,
+                shouldHighlightTitle && !backgroundImageURL,
             })}
           >
             {title}

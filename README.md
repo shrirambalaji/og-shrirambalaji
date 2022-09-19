@@ -8,14 +8,17 @@ Open Graph Image as a Service. Based on Vercel's implementation [og-image](https
 > Serverless service that generates dynamic Open Graph images that you can embed in your <meta> tags. For each keystroke, headless chromium is used to render an HTML page and take a screenshot of the result which gets cached.
 
 Supports the following query parameters:
-| Parameter        | Type       | Description                                                | Required  |
-|--------------   |----------- |------------------------------------------------------------|-----------|
-| `title`         | string     | Title of the OpenGraph Image                               | Yes       |      
-| `date`          | string     | Date to be shown on the top                                | No        |
-| `subtitle`      | string     | Subtitle shown below title                                 | No        |
-| `backgroundUrl` | string     | Background Image URL to replace the default background     | No        |
-| `blur`          | boolean    | Denotes if the background should be blurred                | No        |
-| `highlight`     | boolean    | Adds a highlight to the title                              | No        |
+| Parameter                  | Type    | Description                                                                          | Required |
+| -------------------------- | ------- | ------------------------------------------------------------------------------------ | -------- |
+| `title`                    | string  | Title of the OpenGraph Image                                                         | Yes      |
+| `date`                     | string  | Date to be shown on the top                                                          | No       |
+| `subtitle`                 | string  | Subtitle shown below title                                                           | No       |
+| `backgroundImageURL`       | string  | Background Image URL to replace the default background                               | No       |
+| `backgroundOverlayOpacity` | number  | Black overlay opacity used when an `backgroundImageURL` is provided. Defaults to 0.5 | No       |
+| `blur`                     | boolean | Denotes if the background should be blurred                                          | No       |
+| `center`                   | boolean | Denotes if the contents should be centered                                           | No       |
+| `hideUsername`             | boolean | Denotes if username needs to hidden                                                  | No       |
+| `highlight`                | boolean | Adds a highlight to the title                                                        | No       |
 
 ## Usage
  
