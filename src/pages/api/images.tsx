@@ -1,39 +1,39 @@
+import { ImageResponse } from "@vercel/og";
 import { IncomingMessage, ServerResponse } from "http";
-import path from "path";
-import { ScreenshotOptions } from "puppeteer-core";
-import { getScreenshot } from "./_lib/chromium";
+import { NextRequest } from "next/server";
+import OgImage from "../../components/OgImage";
 const isDev = !process.env.AWS_REGION;
 const HOST = isDev ? "http://localhost:3001" : process.env.VERCEL_HOST;
 
-const DEFAULT_TITLE = "Hello World!";
-
-interface OgSearchParams extends URLSearchParams {
+export interface OgSearchParams {
   title?: string;
-  fileType?: ScreenshotOptions["type"];
+  backgroundImageURL?: string;
+  backgroundOverlayOpacity?: string;
+  blur?: string;
+  center?: string;
+  date?: string;
+  highlight?: string;
+  subtitle?: string;
+  hideUsername?: string;
 }
 
+// FIXME:  TypeError [ERR_UNKNOWN_FILE_EXTENSION]: Unknown file extension ".wasm"
 export default async function handler(
-  req: IncomingMessage,
+  req: NextRequest,
   res: ServerResponse
 ) {
   try {
     const url = new URL(req.url as string, HOST);
-    const params: OgSearchParams = url.searchParams;
-    const fileType =
-      (params.get("fileType") as unknown as ScreenshotOptions["type"]) ?? "png";
-    const title = params.get("title") ?? DEFAULT_TITLE;
-    const queryString = params.toString();
-    const screenshotUrl = `${HOST}?${queryString}`;
-    const file = await getScreenshot(screenshotUrl, fileType);
-
-    res.statusCode = 200;
-    res.setHeader("Content-Type", `image/${fileType}`);
-    res.setHeader(
-      "Cache-Control",
-      `public, immutable, no-transform, s-maxage=31536000, max-age=31536000`
+    const params: OgSearchParams = Object.fromEntries(
+      url.searchParams.entries()
     );
-    // TODO: add back filename
-    res.end(file);
+    const image = <OgImage {...params} />;
+    const response = new ImageResponse(image, {
+      width: 1200,
+      height: 630,
+      emoji: "fluent",
+    });
+    return response;
   } catch (e) {
     res.statusCode = 500;
     res.setHeader("Content-Type", "text/html");
